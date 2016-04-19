@@ -1,0 +1,21 @@
+/* continent color */
+.continent
+{
+
+}
+
+/* country colors */
+#fr
+{
+  fill: blue;
+}
+
+#it
+{
+	fill: red
+}
+
+#gr
+{
+	fill: green
+}
