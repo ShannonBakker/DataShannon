@@ -17,7 +17,6 @@ data = {"data" : data_rows}
 
 
 # write the data to the json-file
-print data
 json.dump(data, jsonf)
 jsonf.close()  
 
