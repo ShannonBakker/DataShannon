@@ -1,6 +1,9 @@
 /* use this to test out your function */
 window.onload = function() {
- 	changeColor("fr", "pink");
+ 	changeColor("de", "pink");
+	changeColor("dk", "blue");
+	changeColor("is", "purple");
+	changeColor("nl", "yellow")
 }
 
 /* changeColor takes a path ID and a color (hex value)
