@@ -5,19 +5,20 @@ import csv
 
 # load the files
 csvf = open('ei_lmhr_m_1_Data.csv', 'r')
-jsonf = open('unemployement.json', 'w+')
+jsonf = open('data.json', 'w+')
 
 # put the csv in json format
 fieldnames = ['country', 'data']
 reader = csv.DictReader(csvf, fieldnames=fieldnames)
 data_rows = []
 for row in reader:
-    data_rows.append(row) 
+    data_rows.append(row)
 data = {"data" : data_rows}
 
 
 # write the data to the json-file
 json.dump(data, jsonf)
-jsonf.close()  
+jsonf.close()
+csvf.close()
 
 

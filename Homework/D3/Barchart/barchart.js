@@ -1,6 +1,4 @@
 
-d3.select("body").append("h1").html("My beautiful text")
-
-d3.json("csv.json", function(error, data) {
+d3.json("toeristen.json", function(error, data) {
     console.log(data);
 });
