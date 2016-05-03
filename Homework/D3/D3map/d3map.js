@@ -1,7 +1,9 @@
+// inspiration for this code from https://github.com/markmarkoh/datamaps/blob/master/src/examples/highmaps_world.html
+
 // load the data from the csv
 d3.csv("gdp-world.csv", function(data){
 			
-	// convert the data to the correct format
+	// convert the data to the correct format, missing values get an absurd high value, so they can be coloured separately
 	for (i = 0; i < data.length; i++){
 		if(data[i].GDP == ""){
 			data[i].GDP = 1000001
@@ -12,17 +14,6 @@ d3.csv("gdp-world.csv", function(data){
 	}
 	
 	var dataset = {};
-			
-	var onlyValues = data.map(function(obj){ 
-		if (obj.GDP != "missing"){
-			return obj.GDP
-		}
-		else{
-			return 6000
-		}; 
-	});	
-    var minValue = Math.min.apply(null, onlyValues),
-            maxValue = Math.max.apply(null, onlyValues);
 			
     // create color function
 	var color = d3.scale.threshold()
@@ -41,35 +32,23 @@ d3.csv("gdp-world.csv", function(data){
 	data.forEach(function(item){ 
 		var iso = item.Country,
             value = item.GDP;
-		//if (value=="missing"){
-			//dataset[iso] = { numberOfThings: value, fillColor: "#fed976" };
-		//} 
-		//else{ 
 			dataset[iso] = { numberOfThings: value, fillColor: color(value) };
-		//}
     });
 	
     // render map
-    new Datamap({
+    var map = new Datamap({
         element: document.getElementById('container'),
         projection: 'mercator', 
         fills: { defaultFill: '#F5F5F5' },
         data: dataset,
         geographyConfig: {
-            borderColor: '#DEDEDE',
-            highlightBorderWidth: 2,
-            // change color and border country on mouse hover
-            highlightFillColor: '#fc9272',
-            highlightBorderColor: '#B7B7B7',
-            // show desired information in tooltip
+            highlightFillColor: "#004529",
             popupTemplate: function(geo, data) {
-                // don't show tooltip if country not present in dataset
                 if (!data) { return ; }
-				// determine the info that the tooltip has to show
-				if (data.numberOfThings < 1000000){
+				else if (data.numberOfThings < 1000000){
                 return ['<div class="hoverinfo">',
                     '<strong>', geo.properties.name, '</strong>',
-                    '<br>GDP per capita: $<strong>', data.numberOfThings, '</strong>',
+                    '<br>GDP per capita:<strong> $', data.numberOfThings, '</strong>',
                     '</div>'].join('');
 				}
 				else{
@@ -80,7 +59,10 @@ d3.csv("gdp-world.csv", function(data){
 				}
             }
         }
+	
 	})
+	
+
 });
 			
 			
