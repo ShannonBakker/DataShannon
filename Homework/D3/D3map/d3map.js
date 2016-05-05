@@ -35,10 +35,11 @@ d3.csv("gdp-world.csv", function(data){
 			dataset[iso] = { numberOfThings: value, fillColor: color(value) };
     });
 	
+
+	
     // render map
     var map = new Datamap({
         element: document.getElementById('container'),
-        projection: 'mercator', 
         fills: { defaultFill: '#F5F5F5' },
         data: dataset,
         geographyConfig: {
