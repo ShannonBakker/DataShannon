@@ -1,13 +1,14 @@
-http://www.sitepoint.com/creating-simple-line-bar-charts-using-d3-js/
-
+// inspiration from http://www.sitepoint.com/creating-simple-line-bar-charts-using-d3-js/ and http://bl.ocks.org/mbostock/3902569
 
 // set the margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+// the formulas that put the date in the correct format
 var formatDate = d3.time.format("%d-%b-%y").parse;
 var format = d3.time.format("%d-%b-%y")
+var bisectDate = d3.bisector(function(d) { return d.date; }).left
 
 // prepare the axis	
 var x = d3.time.scale()
@@ -24,13 +25,7 @@ var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
 
-// make a function for the line	
-var line = d3.svg.line()
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.average_temp); });
-
-
-// intialize the graph
+// initialize the graph
 var lineChart = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -39,7 +34,12 @@ var lineChart = d3.select("body").append("svg")
 
 // load the data
 d3.json("data.json", function(error, data) {
-	if (error) throw error;
+	if (error) {
+		console.log("error")
+		throw new Error("Something went badly wrong!");
+	exit()
+}
+	
 	data.data.forEach(function(d) {
 		d.date = format(new Date(d.year, d.month-1, d.day));
         d.date = formatDate(d.date);
@@ -50,29 +50,33 @@ d3.json("data.json", function(error, data) {
     x.domain(d3.extent(data.data, function(d) { return d.date; }));
 	y.domain(d3.extent(data.data, function(d) { return d.average_temp; }));	
 
-	// makt the x axis
+	// make the x axis
 	lineChart.append("g")
       .attr("class", "x axis")
 	  .attr("transform", "translate(0," + height + ")", "rotate(-50)")
 		.call(xAxis)
 	
 	//make the y axis
-  lineChart.append("g")
-      .attr("class", "y axis")
+	lineChart.append("g")
+      .attr("class", "axis")
       .call(yAxis)
     .append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 6)
-      .attr("dy", ".71em")
+      .attr("y", 5)
+      .attr("dy", ".75em")
       .style("text-anchor", "end")
 	  .style("font-size", "11px") 
-      .text("Temperaturde (degrees Celsius)");
+      .text("Temperature (degrees Celsius)");
 	
 	// make the line
     lineChart.append("path")
       .datum(data.data)
       .attr("class", "line")
-      .attr("d",line);
+	  .attr("y", 100)
+	  .attr("dy", ".75em")
+      .attr("d", d3.svg.line()
+			.x(function(d) { return x(d.date); })
+			.y(function(d) { return y(d.average_temp); }))
 	  
 	 // append the title
 	lineChart.append("text")
@@ -81,6 +85,36 @@ d3.json("data.json", function(error, data) {
         .attr("text-anchor", "end")  
         .style("font-size", "17px")  
         .text("Average temperature in de Bilt (2015)");
+	
+	// append the dot
+	var dot = lineChart.append("g")
+      .attr("class", "dot")
+      .style("display", "none")
+	dot.append("circle")
+      .attr("r", 3);
+	dot.append("text")
+      .attr("x", 9)
+      .attr("dy", ".35em");
+
+	// append the overlay, necessary for the tooltip
+	lineChart.append("rect")
+      .attr("class", "background")
+      .attr("width", width)
+      .attr("height", height)
+      .on("mouseover", function() { dot.style("display", null); })
+      .on("mousemove", mousemove);
+
+	// the function for the mousemove, inspiration from http://bl.ocks.org/mbostock/3902569
+	function mousemove() {
+		var xinverterd = x.invert(d3.mouse(this)[0]),
+			i = bisectDate(data.data, xinverterd, 1),
+        d0 = data.data[i - 1],
+        d1 = data.data[i],
+        d = xinverterd - d0.date > d1.date - xinverterd ? d1 : d0;
+	dot.attr("transform", "translate(" + x(d.date) + "," + y(d.average_temp) + ")");
+    dot.select("text").text(d.average_temp +" degrees Celsius "+ format(d.date));
+  }
+  
  });
  
  
