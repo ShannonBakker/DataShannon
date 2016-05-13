@@ -1,3 +1,4 @@
+// Shannon Bakker 11201401
 // inspiration from http://www.sitepoint.com/creating-simple-line-bar-charts-using-d3-js/ and http://bl.ocks.org/mbostock/3902569
 
 // set the margins of the graph
@@ -37,9 +38,7 @@ d3.json("data.json", function(error, data) {
 	if (error) {
 		console.log("error")
 		throw new Error("Something went badly wrong!");
-	exit()
 }
-	
 	data.data.forEach(function(d) {
 		d.date = format(new Date(d.year, d.month-1, d.day));
         d.date = formatDate(d.date);

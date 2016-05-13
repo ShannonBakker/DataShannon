@@ -1,0 +1,35 @@
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: purple;
+}
+
+.line_max {
+  fill: none;
+  stroke: red;
+}
+
+.line_min {
+  fill: none;
+  stroke: blue;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.focusLine {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 0.5px;
+        }

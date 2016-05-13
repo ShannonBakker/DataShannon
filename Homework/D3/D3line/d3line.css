@@ -1,0 +1,28 @@
+body {
+  font: 10px sans-serif;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.line {
+  fill: none;
+  stroke: purple;
+}
+
+.background {
+  fill: none;
+  pointer-events: all;
+}
+.focusLine {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 0.5px;
+        }
+.dot{
+	fill: none;
+	stroke: purple
+}

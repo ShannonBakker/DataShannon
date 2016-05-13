@@ -1,4 +1,5 @@
-// Shannon Bakker
+// Shannon Bakker 11201401
+// Door tijdsgebrek helaas geen werkende extra interactiviteit
 // inspiration from http://www.sitepoint.com/creating-simple-line-bar-charts-using-d3-js/ and http://bl.ocks.org/mbostock/3902569
 
 // set the margins of the graph
