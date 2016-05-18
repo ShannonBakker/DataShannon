@@ -1,0 +1,33 @@
+<!doctype html>
+
+<html>
+
+	<head>
+		<style>
+		.tooltip {
+ 
+}
+
+</style>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<title>Energy</title>
+		
+		
+	</head>
+	<body>
+		<font size = 4px face=sans-serif>Energy</font>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+		<script type="text/javascript" src="world-map.js"></script>
+		<div id="container_map" style="position: absolute; width: 800px; height: 500px;"></div>
+		<div id="container_pie"style="position: absolute;  width: 800px; height: 500px;left:900px;"></div>
+		<script type="text/javascript" src="d3LinkedViews2.js"></script>
+		
+		<div class="btn-group">
+                <button type = "button" class ="btn btn-primary" id="capita" onclick="updateData2()" >Energy use per Capita</button>
+                <button type= "button" class="btn btn-primary " id="energy_unit"onclick="updateData()">GDP per unit of energy use</button>
+        </div>
+	</body>
+	
+</html>
