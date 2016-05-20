@@ -2,7 +2,6 @@
 // Shannon Bakker 11201401
 
 function makegraph(file, domain_range, capita){	
-	
 	// load the data 
 	d3.csv(file, function(error, data){
 		if (error) {
@@ -19,7 +18,6 @@ function makegraph(file, domain_range, capita){
 			}
 		}
 	
-			
 		// create color function
 		var color = d3.scale.threshold()
 		.domain(domain_range)
