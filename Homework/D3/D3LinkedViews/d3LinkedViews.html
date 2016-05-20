@@ -3,15 +3,6 @@
 <html>
 
 	<head>
-		<style>
-	 .legend {
-    font-size: 12px;
-  }
-  rect {
-    stroke-width: 2;
-  }
-
-</style>
 
 		<title>Energy use (2013)</title>
 		
@@ -21,12 +12,10 @@
 		<font size = 4px face=sans-serif>Energy use (2013)</font>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js"></script>
-		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 		<script type="text/javascript" src="world-map.js"></script>
 		<div id="container_map" style="position: absolute; width: 800px; height: 500px; "></div>
 		<div id="container_pie"style="position: absolute;  width: 800px; height: 500px;left:900px;"></div>
-		<script type="text/javascript" src="d3LinkedViews2.js"></script>
+		<script type="text/javascript" src="d3LinkedViews.js"></script>
 		
 		<div class="btn-group"style="position: absolute; top: 40px; left:10px;">
                 <button type = "button" class ="btn btn-primary" id="capita" onclick="updateData_Capita()" >Energy use per Capita</button>
@@ -36,9 +25,10 @@
 	<p style="position: absolute; top:420px ">
 	Deze visualisatie gaat over energieverbruik. De data is afkomstig van de Worldbank. De kaart is ingekleurd op basis van het energieverbuik per capita van een land. 
 	Wanneer je over een land hovert is te zien hoeveel energie er precies per land wordt verbruikt. Ik heb voor de inkleuring blauw/paars gekozen. Hier heb ik voor gekozen omdat 
-	blauw een neutrale kleur is. Energieverbruik is namelijk niet per sé iets goeds of iets slechts. Veel energieverbruik is slecht voor het milieu, maar duidt ook op welvaart. 
+	blauw een neutrale kleur is. Energieverbruik is namelijk niet per sé iets goeds of iets slechts. Veel energieverbruik is slecht voor het milieu, maar duidt ook op welvaart.
+	De landen zonder data zijn geel gekleurd, dit omdat geel duidelijk anders is dan blauw en omdat geel een redelijk neutrale kleur is. 
 	Wanneer je vervolgens op een land klinkt is indien de data beschikbaar is een taartgrafiek te zien met het type energie dat verbruikt wordt. Ik heb voor een taartgrafiek
-	gekozen, omdat een taargrafiek goed geschikt is voor data dat samen een geheel vormt, zoals data dat opgeteld altijd 100% is. De verschillende energiebronnen
+	gekozen, omdat een taartgrafiek goed geschikt is voor data dat samen een geheel vormt, zoals data dat opgeteld altijd 100% is. De verschillende energiebronnen
 	zijn door het kleurgebruik goed te onderscheiden en een legenda verduidelijkt waar de kleuren voor staan. Als je over de taart hovert zie je de exacte percentages
 	die bij de energiebronnen horen. Tot slot kan je ook nog voor een andere weergave van de kaart kiezen. In deze tweede weergave kan je zien hoeveel energie er wordt
 	verbruikt ten opzichte van het GDP van het land. De functionaliteiten van deze kaart zijn verder gelijk aan de standaarweergave. 	
