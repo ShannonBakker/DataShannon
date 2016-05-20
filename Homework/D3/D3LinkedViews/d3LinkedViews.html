@@ -13,12 +13,12 @@
 
 </style>
 
-		<title>Energy Use(2013)</title>
+		<title>Energy use (2013)</title>
 		
 		
 	</head>
 	<body>
-		<font size = 4px face=sans-serif>Energy Use(2013)</font>
+		<font size = 4px face=sans-serif>Energy use (2013)</font>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js"></script>
@@ -29,31 +29,24 @@
 		<script type="text/javascript" src="d3LinkedViews2.js"></script>
 		
 		<div class="btn-group"style="position: absolute; top: 40px; left:10px;">
-                <button type = "button" class ="btn btn-primary" id="capita" onclick="updateData2()" >Energy use per Capita</button>
-                <button type= "button" class="btn btn-primary " id="energy_unit"onclick="updateData()">GDP per unit of energy use</button>
+                <button type = "button" class ="btn btn-primary" id="capita" onclick="updateData_Capita()" >Energy use per Capita</button>
+                <button type= "button" class="btn btn-primary " id="energy_unit"onclick="updateData_GDP()">GDP per unit of energy use</button>
         </div>
-	
- <svg version="1.1"
-     baseProfile="full"
-     width="150" height="400"
-	 style = "left:0; top:150; position: absolute"
-     xmlns="http://www.w3.org/2000/svg"
-	 >
-	 
 
-  
-  <rect width=10 height=10 x=45 y=195 stroke="black" fill = "#fed976"/>
-  <text x="60" y="202" font-size="6" text-anchor="right" font-weight="bold" fill="black">0 - 3 %</text>
-  <rect width=10 height=10 x=45 y=205 stroke="black" fill = "#feb24c"/>
-  <text x="60" y="212" font-size="6" text-anchor="right" font-weight="bold" fill="black">3 - 6 %</text>
-  <rect width=10 height=10 x=45 y=215 stroke="black" fill = "#fd8d3c"/>
-  <text x="60" y="222" font-size="6" text-anchor="right" font-weight="bold" fill="black">6 - 9 %</text>
-  <rect width=10 height=10 x=45 y=225 stroke="black" fill = "#f03b20"/>
-  <text x="60" y="232" font-size="6" text-anchor="right" font-weight="bold" fill="black">9 - 12 %</text>
-  <rect width=10 height=10 x=45 y=235 stroke="black" fill = "#bd0026"/>
-  <text x="60" y="242" font-size="6" text-anchor="right" font-weight="bold" fill="black">12+ %</text>
-  <rect width=10 height=10 x=45 y=245 stroke="black" fill = "#6baed6"/>
-  <text x="60" y="252" font-size="6" text-anchor="right" font-weight="bold" fill="black">unknown</text>
+	<p style="position: absolute; top:420px ">
+	Deze visualisatie gaat over energieverbruik. De data is afkomstig van de Worldbank. De kaart is ingekleurd op basis van het energieverbuik per capita van een land. 
+	Wanneer je over een land hovert is te zien hoeveel energie er precies per land wordt verbruikt. Ik heb voor de inkleuring blauw/paars gekozen. Hier heb ik voor gekozen omdat 
+	blauw een neutrale kleur is. Energieverbruik is namelijk niet per sé iets goeds of iets slechts. Veel energieverbruik is slecht voor het milieu, maar duidt ook op welvaart. 
+	Wanneer je vervolgens op een land klinkt is indien de data beschikbaar is een taartgrafiek te zien met het type energie dat verbruikt wordt. Ik heb voor een taartgrafiek
+	gekozen, omdat een taargrafiek goed geschikt is voor data dat samen een geheel vormt, zoals data dat opgeteld altijd 100% is. De verschillende energiebronnen
+	zijn door het kleurgebruik goed te onderscheiden en een legenda verduidelijkt waar de kleuren voor staan. Als je over de taart hovert zie je de exacte percentages
+	die bij de energiebronnen horen. Tot slot kan je ook nog voor een andere weergave van de kaart kiezen. In deze tweede weergave kan je zien hoeveel energie er wordt
+	verbruikt ten opzichte van het GDP van het land. De functionaliteiten van deze kaart zijn verder gelijk aan de standaarweergave. 	
+	<p>
+	<p style="position: absolute; top:570px"> bron: http://data.worldbank.org/indicator/EG.USE.PCAP.KG.OE/countries</p>
+	<p style="position: absolute; top:590px" >Shannon Bakker 11201401</p>
+	
+	
 	</body>
 	
 </html>
