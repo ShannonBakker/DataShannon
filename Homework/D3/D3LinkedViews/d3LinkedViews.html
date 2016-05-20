@@ -4,30 +4,56 @@
 
 	<head>
 		<style>
-		.tooltip {
- 
-}
+	 .legend {
+    font-size: 12px;
+  }
+  rect {
+    stroke-width: 2;
+  }
 
 </style>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-		<title>Energy</title>
+
+		<title>Energy Use(2013)</title>
 		
 		
 	</head>
 	<body>
-		<font size = 4px face=sans-serif>Energy</font>
+		<font size = 4px face=sans-serif>Energy Use(2013)</font>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/1.10.0/d3-legend.js"></script>
 		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 		<script type="text/javascript" src="world-map.js"></script>
-		<div id="container_map" style="position: absolute; width: 800px; height: 500px;"></div>
+		<div id="container_map" style="position: absolute; width: 800px; height: 500px; "></div>
 		<div id="container_pie"style="position: absolute;  width: 800px; height: 500px;left:900px;"></div>
 		<script type="text/javascript" src="d3LinkedViews2.js"></script>
 		
-		<div class="btn-group">
+		<div class="btn-group"style="position: absolute; top: 40px; left:10px;">
                 <button type = "button" class ="btn btn-primary" id="capita" onclick="updateData2()" >Energy use per Capita</button>
                 <button type= "button" class="btn btn-primary " id="energy_unit"onclick="updateData()">GDP per unit of energy use</button>
         </div>
+	
+ <svg version="1.1"
+     baseProfile="full"
+     width="150" height="400"
+	 style = "left:0; top:150; position: absolute"
+     xmlns="http://www.w3.org/2000/svg"
+	 >
+	 
+
+  
+  <rect width=10 height=10 x=45 y=195 stroke="black" fill = "#fed976"/>
+  <text x="60" y="202" font-size="6" text-anchor="right" font-weight="bold" fill="black">0 - 3 %</text>
+  <rect width=10 height=10 x=45 y=205 stroke="black" fill = "#feb24c"/>
+  <text x="60" y="212" font-size="6" text-anchor="right" font-weight="bold" fill="black">3 - 6 %</text>
+  <rect width=10 height=10 x=45 y=215 stroke="black" fill = "#fd8d3c"/>
+  <text x="60" y="222" font-size="6" text-anchor="right" font-weight="bold" fill="black">6 - 9 %</text>
+  <rect width=10 height=10 x=45 y=225 stroke="black" fill = "#f03b20"/>
+  <text x="60" y="232" font-size="6" text-anchor="right" font-weight="bold" fill="black">9 - 12 %</text>
+  <rect width=10 height=10 x=45 y=235 stroke="black" fill = "#bd0026"/>
+  <text x="60" y="242" font-size="6" text-anchor="right" font-weight="bold" fill="black">12+ %</text>
+  <rect width=10 height=10 x=45 y=245 stroke="black" fill = "#6baed6"/>
+  <text x="60" y="252" font-size="6" text-anchor="right" font-weight="bold" fill="black">unknown</text>
 	</body>
 	
 </html>

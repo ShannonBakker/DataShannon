@@ -2,20 +2,22 @@
 // http://bl.ocks.org/biovisualize/1016860
 // http://zeroviscosity.com/d3-js-step-by-step/step-5-adding-tooltips
 
-// make the pie
-file = "sources.csv"
-domain_range = [100, 500, 1000, 2000, 3000,4000,5000,10000]
+
+
 
 function makegraph(file, domain_range){
-console.log()
-// set the margins
-var width = 360;
-var height = 360;
-var radius = Math.min(width, height) / 2;
 
-//determine the color scheme
-var color_pie = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+	// set the margins of the pie
+	var width_pie = 360;
+	var height_pie = 360;
+	var radius = Math.min(width_pie, height_pie) / 2;
+
+	// determine the color scheme
+	var color_pie = d3.scale.ordinal()
+		//.domain([])
+		.range(["#1b9e77", "#d95f02", "#7570b3", "#e7298a"]);
+	
+	
 
 // set the arc
 var arc = d3.svg.arc()
@@ -25,6 +27,7 @@ var arc = d3.svg.arc()
 var pie = d3.layout.pie()
 	.value(function(d) { return d.count; })
 	.sort(null);	
+
 // set the tooltip
 var tooltip = d3.select("body")
 		.append("div")
@@ -33,8 +36,11 @@ var tooltip = d3.select("body")
 
 	
 
-d3.csv(file, function(data){
-			
+d3.csv(file, function(error, data){
+	if (error) {
+	alert("Something went wrong while loading the data")
+	}	
+	
 	// convert the data to the correct format, missing values get an absurd high value, so they can be coloured separately
 	for (i = 0; i < data.length; i++){
 		if(data[i].Energy == ""){
@@ -70,12 +76,17 @@ d3.csv(file, function(data){
     // render map
     var map = new Datamap({
         element: document.getElementById('container_map'),
-        fills: { defaultFill: '#F5F5F5' },
+        fills: { defaultFill: '#fed976' },
         data: dataset,
         geographyConfig: {
             highlightFillColor: "#004529",
             popupTemplate: function(geo, data1) {
-                if (!data1) { return ; }
+                if (!data1) { 
+				return ['<div class="hoverinfo">',
+                    '<strong>', geo.properties.name, '</strong>',
+                    '<br>Energy per capita is unknown',
+                    '</div>'].join('');
+				}
 				else if (data1.numberOfThings < 1000000){
                 return [
 					'<div class="hoverinfo">',
@@ -92,6 +103,8 @@ d3.csv(file, function(data){
 			
 			}
         },
+		
+
 		done: function(datamap) {
         datamap.svg.selectAll('.datamaps-subunit').on('click', function(geography) {
             console.log(geography);
@@ -100,29 +113,32 @@ d3.csv(file, function(data){
 						
 						// remove the old pie 
 						d3.select('#pie').remove();
+						
 						// make the svg	
-				
 					var svg = d3.select('#container_pie')
 						.append('svg')
 							.attr('id', 'pie')
-							.attr('width', width)
-							.attr('height', height)
+							.attr('width', width_pie+80)
+							.attr('height', height_pie)
 							.append('g')
-							.attr('transform', 'translate(' + (width / 2) + 
-							',' + (height / 2) + ')');
+							.attr('transform', 'translate(' + (width_pie / 2) + 
+							',' + (height_pie / 2) + ')');
 
-
-						
 						// set the data in the correct format
 						number = i;
 						unknown =0 
 
 						// check if any part of the data is unknown
-						if ( Number(data[i].Fossil) + Number(data[i].Renewable) + Number(data[i].Alternative) < 100){
+						if ( Number(data[i].Fossil) + Number(data[i].Renewable) + Number(data[i].Alternative) < 99.5){
 							unknown = Number(data[i].Fossil) + Number(data[i].Renewable) + Number(data[i].Alternative)
 							unknown = 100 - unknown
 							console.log("unknown",unknown)
 						}	
+						
+						// remove the pie if unknown is bigger than 99%
+						if (unknown>99){
+							d3.select('#pie').remove();
+						}
 						
 						// put the data in the correct format
 						var dataset = [
@@ -144,6 +160,32 @@ d3.csv(file, function(data){
 							})
 						.each(function(d) { this._current = d; });
 						
+						// add the legend
+						var legendRectSize = 18;
+						var legendSpacing = 5;
+					var legend = svg.selectAll('.legend')
+						.data(color_pie.domain())
+						.enter()
+						.append('g')
+						.attr('class', 'legend')
+						.attr('transform', function(d, i) {
+						var height = legendRectSize + legendSpacing;
+						var offset =  height * color.domain().length / 2;
+						var horz = 9 * legendRectSize;
+						var vert = i * height - offset * 2;
+    return 'translate(' + horz + ',' + vert + ')';
+  });
+  legend.append('rect')
+  .attr('width', legendRectSize)
+  .attr('height', legendRectSize)
+  .style('fill', color_pie)
+  .style('stroke', color_pie);
+  
+  legend.append('text')
+  .attr('x', legendRectSize + legendSpacing)
+  .attr('y', legendRectSize - legendSpacing)
+  .text(function(d) { return d; });
+						
 						
 						// add the tooltip
 						path.on("mouseover", function(d){return tooltip.text(d.data.label + ": " + d.data.count+"%").style("visibility", "visible");})
@@ -155,21 +197,24 @@ d3.csv(file, function(data){
         });
     }
 		
-	})	
+	})
+	map.legend()
 
 });
 
+map.legend()
+
 }
 
+file = "sources.csv"
+domain_range = [100, 500, 1000, 2000, 3000,4000,5000,10000]
 
 makegraph(file, domain_range)
 
 // ** Update data section (Called from the onclick)
 function updateData() {
 	d3.select('svg').remove();
-	domain_range = [2, 4, 6, 8, 10,12,14,16]
-	
-	console.log("hallo")
+	domain_range = [2, 4, 6, 8, 10,12,14,100]
     
 	makegraph("sources_GDP.csv", domain_range)
 
@@ -178,8 +223,6 @@ function updateData() {
 function updateData2() {
 	d3.select('svg').remove();
 	domain_range = [100, 500, 1000, 2000, 3000,4000,5000,10000]
-	
-	console.log("hallo")
     
 	makegraph("sources.csv", domain_range)
 
